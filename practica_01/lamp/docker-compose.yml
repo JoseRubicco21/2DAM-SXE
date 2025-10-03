@@ -1,0 +1,26 @@
+services:
+  mysql:
+    container_name: mysql
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+  dev:
+    container_name: apache
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - html:/car/www/html
+    depends_on:
+      - mysql
+
+volumes:
+  mysql:
+  html:
